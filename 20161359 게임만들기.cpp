@@ -1,7 +1,10 @@
-﻿#include<windows.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<windows.h>
 #include <iostream>
 #include <bangtal>
 #include <ctime>
+#include <stdlib.h>
+
 
 using namespace bangtal;
 using namespace std;
@@ -63,11 +66,11 @@ int main()
 	auto rab = Object::create("gimage/토끼.jpg", scene, rab_x, rab_y);
 	int cnt = 0;
 	auto timer1 = Timer::create(0.02f);
-	auto timer2 = Timer::create(0.02f);
-	auto timer3 = Timer::create(1.0f);
+	auto timer2 = Timer::create(1.0f);
 
-	auto count = 0;
 	
+	double score;
+	char str[10];
 	timer1->setOnTimerCallback([&](TimerPtr timer)->bool {  //타이머 호출 게임 시작
 			dogx+=5;
 			dogy-=5;
@@ -105,12 +108,20 @@ int main()
 				}
 				if (dogy <= 0)
 				{
-					showMessage("게임 종료");
+					
+					
+					sprintf(str, "%d", cnt);
+					showMessage(str);
+					
 				}
 			}
 			else
 			{
-				showMessage("게임 종료");
+				
+				sprintf(str, "%d", cnt);
+				showMessage(str);
+
+				
 
 			}
 			
@@ -119,12 +130,12 @@ int main()
 		return true;
 		});
 
-
-
-
-
-
-
+	timer2->setOnTimerCallback([&](TimerPtr timer)->bool {
+		cnt++;
+		timer2->set(1.0f);
+		timer2->start();
+		return true;
+		});
 
 
 
@@ -132,7 +143,7 @@ int main()
 
 
 	timer1->start();
-	timer3->start();
+	timer2->start();
 
 	startGame(scene);
 	
