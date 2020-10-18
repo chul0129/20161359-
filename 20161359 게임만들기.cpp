@@ -64,6 +64,9 @@ int main()
 	auto cloud = Object::create("gimage/번개.png", scene, cloud_x, cloud_y);
 	auto squ = Object::create("gimage/다람쥐.jpg", scene, squ_x, squ_y);
 	auto rab = Object::create("gimage/토끼.jpg", scene, rab_x, rab_y);
+	auto restart = Object::create("gimage/restart.png", scene, 600, 400,FALSE);
+	auto end = Object::create("gimage/end.png", scene, 600, 300, FALSE);
+
 	int cnt = 0;
 	auto timer1 = Timer::create(0.02f);
 	auto timer2 = Timer::create(1.0f);
@@ -112,7 +115,9 @@ int main()
 					
 					sprintf(str, "%d", cnt);
 					showMessage(str);
-					
+					restart->show();
+					end->show();
+
 				}
 			}
 			else
@@ -120,11 +125,25 @@ int main()
 				
 				sprintf(str, "%d", cnt);
 				showMessage(str);
-
+				restart->show();
+				end->show();
 				
 
 			}
-			
+			restart->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+				dogx = 0, dogy = 400;
+				dog->locate(scene, dogx, dogy);
+				restart->hide();
+				end->hide();
+				timer1->start();
+				return true;
+				});
+			end->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+				endGame();
+				return true;
+				});
+
+
 
 
 		return true;
