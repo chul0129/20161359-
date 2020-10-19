@@ -117,6 +117,7 @@ int main()
 					showMessage(str);
 					restart->show();
 					end->show();
+					
 
 				}
 			}
@@ -135,7 +136,9 @@ int main()
 				dog->locate(scene, dogx, dogy);
 				restart->hide();
 				end->hide();
+				cnt = 0;
 				timer1->start();
+
 				return true;
 				});
 			end->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
